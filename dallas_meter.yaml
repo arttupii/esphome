@@ -1,0 +1,51 @@
+esphome:
+  name: dallas_central_heater_meter
+  platform: ESP8266
+  board: d1_mini
+  # ... [Other options]
+  includes:
+    - blink.h
+wifi: !include secrets.yaml
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+captive_portal:
+
+# Enable logging
+logger:
+
+
+custom_component:
+- lambda: |-
+    auto my_custom = new Blink(2, 1000, 100);
+    return {my_custom};
+    
+# Example configuration entry
+dallas:
+  - pin: GPIO5
+  
+sensor:
+  - platform: dallas
+    address: 0xC60000038E015E28
+    name: "Temperature #1"
+  - platform: dallas
+    address: 0x400000038E0B3528
+    name: "dallas_central_heater_meter.ulko"
+  - platform: dallas
+    address: 0xE60000038DE0B728
+    name: "Temperature #3"
+  - platform: dallas
+    address: 0x810415A32C80FF28
+    name: "Temperature #4"
+  - platform: dallas
+    address: 0x0F0315A31E98FF28
+    name: "Temperature #5"
+  - platform: dallas
+    address: 0x8C0415A35222FF28
+    name: "Temperature #6"
+  - platform: dallas
+    address: 0x280415A3057DFF28
+    name: "Temperature #7"

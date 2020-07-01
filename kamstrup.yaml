@@ -1,0 +1,54 @@
+esphome:
+  name: kamstrup
+  platform: ESP8266
+  board: d1_mini
+  # ... [Other options]
+  includes:
+    - kamstrup.h
+wifi: !include secrets.yaml
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+captive_portal:
+
+# Enable logging
+logger:
+
+sensor:
+- platform: custom
+  lambda: |-
+    auto my_sensor = new MyCustomSensor();
+    App.register_component(my_sensor);
+    return {my_sensor->energy_sensor,my_sensor->currentPower_sensor,my_sensor->temperatureT1_sensor,my_sensor->temperatureT2_sensor,my_sensor->temperatureDiff_sensor,my_sensor->flow_sensor,my_sensor->volumen1_sensor  };
+
+  sensors:
+  - name: "kamstrup.energy"
+    unit_of_measurement: MWh
+    accuracy_decimals: 4
+    
+  - name: "kamstrup.current"
+    unit_of_measurement: kW
+    accuracy_decimals: 2
+
+  - name: "kamstrup.temperatureT1"
+    unit_of_measurement: C
+    accuracy_decimals: 2
+
+  - name: "kamstrup.temperatureT2"
+    unit_of_measurement: C
+    accuracy_decimals: 2
+
+  - name: "kamstrup.temperatureDiff"
+    unit_of_measurement: C
+    accuracy_decimals: 2
+
+  - name: "kamstrup.flow"
+    unit_of_measurement: l/h
+    accuracy_decimals: 0
+
+  - name: "kamstrup.volumen1"
+    unit_of_measurement: m^3
+    accuracy_decimals: 2    

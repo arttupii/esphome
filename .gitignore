@@ -5,6 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+secrets.yaml
+
+*/*/esphome
+*/src/main.cpp
 
 # Hide sublime text stuff
 *.sublime-project

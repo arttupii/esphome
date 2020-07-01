@@ -1,0 +1,38 @@
+esphome:
+  name: electricity_meter
+  platform: ESP8266
+  board: d1_mini
+  # ... [Other options]
+  includes:
+    - electricity_meter.h
+wifi: !include secrets.yaml
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+captive_portal:
+
+# Enable logging
+logger:
+
+
+
+sensor:
+- platform: custom
+  lambda: |-
+    auto my_sensor = new MyCustomSensor();
+    App.register_component(my_sensor);
+    return {my_sensor->watt_sensor,my_sensor->kWh_counter,my_sensor->Wh_change};
+
+  sensors:
+  - name: "electricityMeter.Watt"
+    unit_of_measurement: W
+    accuracy_decimals: 1
+  - name: "electricityMeter.kWh"
+    unit_of_measurement: kWh
+    accuracy_decimals: 4
+  - name: "electricityMeter.Wh"
+    unit_of_measurement: Wh
+    accuracy_decimals: 4
